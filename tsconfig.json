@@ -17,19 +17,24 @@
     "baseUrl": ".",
     "paths": {
       "@ngeth/*": [
-        "libs/*"
+        "libs/*",
+        "@ngeth/*"
       ],
       "@ngeth/provider": [
-        "libs/provider/src/index.ts"
+        "libs/provider/src/index.ts",
+        "@ngeth/provider"
       ],
       "@ngeth/contract": [
-        "libs/contract/src/index.ts"
+        "libs/contract/src/index.ts",
+        "@ngeth/contracts"
       ],
       "@ngeth/utils": [
-        "libs/utils/src/index.ts"
+        "libs/utils/src/index.ts",
+        "@ngeth/utils"
       ],
       "@ngeth/auth": [
-        "libs/auth/src/index.ts"
+        "libs/auth/src/index.ts",
+        "@ngeth/auth"
       ]
     }
   },

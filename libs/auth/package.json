@@ -14,7 +14,7 @@
     "dest": "../../@ngeth/auth"
   },
   "peerDependencies": {
-    "@ngeth/provider": "0.0.0",
+    "@ngeth/provider": "../../@ngeth/provider",
     "@ngeth/utils": "0.0.0",
     "@angular/core": "^6.0.0",
     "rxjs": "^6.0.0",

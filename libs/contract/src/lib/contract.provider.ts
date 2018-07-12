@@ -11,7 +11,10 @@ export class ContractProvider {
   public tx$ = this.currentTx.asObservable();
   public id: number;
 
-  constructor(@Inject(AUTH) private auth: Auth, private provider: Provider) {
+  constructor(
+    @Inject(AUTH) private auth: Auth,
+    private provider: Provider
+  ) {
     this.id = this.provider.id;
     this.auth.account$
         .subscribe(from => this.defaultTx = { ...this.defaultTx, from });

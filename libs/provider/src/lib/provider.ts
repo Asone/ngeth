@@ -1,5 +1,5 @@
 import { WebsocketProvider } from './ws-provider';
-import { Injectable, Type } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { bindNodeCallback, Observable } from 'rxjs';
 

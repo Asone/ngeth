@@ -36,7 +36,8 @@ export class AppComponent implements OnInit {
     console.log(account);
     const keystore = this.wallet.encrypt(account.privateKey, pwd);
     const result = this.wallet.decrypt(keystore, pwd);
-    console.log('result', account);
+    console.log('account', account);
+    console.log('result', result);
     this.wallet.save(account, pwd);
     this.wallet.getAccounts().subscribe(console.log);
 
@@ -58,7 +59,6 @@ export class AppComponent implements OnInit {
     this.testEvent.events.OnlyStaticStructEvent()
         .subscribe((event) => console.log('OnlyStaticStructEvent', event));
     //// CALLS
-
     /*
     this.encoderTest.calls.getAddress('0xbEbDCB7685ab170E24215B45c81d9FFE00BBa54c')
       .subscribe(address => console.log('address', address));
