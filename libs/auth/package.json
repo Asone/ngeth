@@ -24,5 +24,8 @@
     "secp256k1": "^3.5.0",
     "uuid": "^3.3.0",
     "scrypt.js": "^0.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

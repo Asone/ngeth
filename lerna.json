@@ -12,5 +12,6 @@
     "publish": {
       "message": "update new version to %v"
     }
-  }
+  },
+  "version": "0.1.3"
 }
