@@ -38,11 +38,11 @@ export class Signer {
   }
 
   /**
-   * Recover a transaction based on its raw value
+   * TODO:Recover a transaction based on its raw value
    * @param rawTx The raw transaction format
    */
   public recoverTx(rawTx: string) {
-
+    throw new Error('Recover Tx is not implemented yet, sorry');
   }
 
   /**

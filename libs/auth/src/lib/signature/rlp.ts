@@ -10,7 +10,7 @@ import { Buffer } from 'buffer';
  * @param data - will be converted to buffer
  * @returns  - returns buffer of encoded data
  **/
-@Injectable({ providedIn: AuthModule })
+@Injectable({ providedIn: 'root' })
 export class RLP {
   public encode(input: Buffer | string | number | Array<any>) {
     if (input instanceof Array) {

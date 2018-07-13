@@ -3,7 +3,8 @@ import { TxObject, toChecksumAddress, checkAddressChecksum } from '@ngeth/utils'
 import { Provider } from '@ngeth/provider';
 
 import { Auth } from './auth';
-import { Accounts, EncryptOptions, Keystore, EthAccount } from './account';
+import { EncryptOptions, Keystore, EthAccount } from './account';
+import { Accounts } from './account/account';
 import { Signer } from './signature/signer';
 
 import { Observable, BehaviorSubject } from 'rxjs';

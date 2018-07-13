@@ -29,8 +29,8 @@
     "build:libs": "yarn run build:libs:utils && build:libs:provider && build:libs:contract && build:libs:auth",
     "build:libs:utils": "ng-packagr -p libs/utils/package.json",
     "build:libs:provider": "ng-packagr -p libs/provider/package.json",
-    "build:libs:contract": "ng-packagr -p libs/contract/package.json",
     "build:libs:auth": "ng-packagr -p libs/auth/package.json",
+    "build:libs:contract": "ng-packagr -p libs/contract/package.json",
     "lerna": "lerna",
     "publish": "lerna publish --skip-git"
   },

@@ -17,10 +17,8 @@ export interface EthAccount {
 }
 
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class Accounts {
-
-  constructor() {}
 
   /**
    * Create an Ethereum keypair
