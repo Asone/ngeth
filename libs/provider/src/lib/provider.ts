@@ -1,20 +1,15 @@
 import { WebsocketProvider } from './ws-provider';
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { bindNodeCallback, Observable } from 'rxjs';
 
 import { RPCRes, RPCReq, RPCSub } from '@ngeth/utils';
 import { MainProvider } from './main-provider';
 
-@Injectable({providedIn: 'root'})
 export class Provider extends MainProvider {
   public sendAsync: <T>(payload: RPCReq) => Observable<RPCRes<T>>;
   public on: <T>(payload: RPCReq) => Observable<RPCSub<T>>;
 
-  constructor(
-    public http: HttpClient,
-    public ws: WebsocketProvider
-  ) {
+  constructor(public http: HttpClient, public ws: WebsocketProvider) {
     super();
   }
 

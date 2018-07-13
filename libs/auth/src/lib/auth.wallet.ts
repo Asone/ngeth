@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Provider } from '@ngeth/provider';
 import { TxObject, toChecksumAddress, checkAddressChecksum } from '@ngeth/utils';
+import { Provider } from '@ngeth/provider';
 
 import { Auth } from './auth';
 import { Accounts, EncryptOptions, Keystore, EthAccount } from './account';

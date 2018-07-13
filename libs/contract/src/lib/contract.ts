@@ -13,7 +13,7 @@ const CONFIG = new InjectionToken('@ngeth/contract : The config of a contract');
  */
 
 /**
- * @class The abstract class for a contract
+ * The abstract class for a contract
  */
 export class Contract<T extends ContractModel> {
   private encoder: ABIEncoder;

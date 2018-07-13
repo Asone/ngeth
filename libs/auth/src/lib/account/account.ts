@@ -4,8 +4,6 @@
  */
 
 import { Injectable } from '@angular/core';
-import { AuthModule } from '../auth.module';
-
 import { v4 } from 'uuid';
 import { toChecksumAddress, keccak256 } from '@ngeth/utils';
 import { privateKeyVerify, publicKeyCreate } from 'secp256k1';
@@ -19,7 +17,7 @@ export interface EthAccount {
 }
 
 
-@Injectable({providedIn: AuthModule})
+@Injectable({providedIn: 'root'})
 export class Accounts {
 
   constructor() {}

@@ -1,6 +1,7 @@
 /*
 * Public API Surface of mylib
 */
-export * from './lib/providers.module';
-export * from './lib/provider';
-export * from './lib/eth';
+export { ProviderModule } from './lib/providers.module';
+export { MainProvider } from './lib/main-provider';
+export { Provider } from './lib/provider';
+export { Eth } from './lib/eth';

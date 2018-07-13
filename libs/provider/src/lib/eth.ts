@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { numberToHex, Block, Transaction, TxReceipt, toBN } from '@ngeth/utils';
-import { ProvidersModule } from './providers.module'
 import { Provider } from './provider';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 
-@Injectable({ providedIn : ProvidersModule })
+@Injectable({ providedIn : 'root' })
 export class Eth {
 
   constructor(private provider: Provider) {}

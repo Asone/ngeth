@@ -2,7 +2,6 @@ import {
   NgModule,
   ModuleWithProviders,
   InjectionToken,
-  Type,
   APP_INITIALIZER
 } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -21,12 +20,12 @@ export function initProvider(provider: Provider, url: string) {
 @NgModule({
   imports: [HttpClientModule]
 })
-export class ProvidersModule {
+export class ProviderModule {
   static init(url: string): ModuleWithProviders {
     return {
-      ngModule: ProvidersModule,
+      ngModule: ProviderModule,
       providers: [
-        Provider,
+        { provide: Provider, useClass: Provider },
         { provide: URL, useValue: url },
         {
           provide: APP_INITIALIZER,

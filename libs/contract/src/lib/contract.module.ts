@@ -1,7 +1,6 @@
 import { Contract } from './contract';
 import { NgModule, Type, InjectionToken } from '@angular/core';
 import { AuthAccount, AUTH, Auth as Authentication } from '@ngeth/auth';
-import { ABIEncoder, ABIDecoder } from './abi';
 
 export const CONTRACTS = new InjectionToken<Contract<any>[]>('@ngeth/contracts: Contracts');
 

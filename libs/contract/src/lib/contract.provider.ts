@@ -78,7 +78,7 @@ export class ContractProvider {
   public estimateGas(transaction: Partial<ITxObject>): Observable<number> {
     const tx = new TxObject(transaction);
     return this.provider.rpc<string>('eth_estimateGas', [tx]).pipe(
-      map(gas => hexToNumber(gas.replace('0x', '')))
+      map((gas: string) => hexToNumber(gas.replace('0x', '')))
     );
   }
 
@@ -87,7 +87,7 @@ export class ContractProvider {
    */
   public gasPrice(): Observable<string> {
     return this.provider.rpc<string>('eth_gasPrice', []).pipe(
-      map(price => hexToNumberString(price.replace('0x', '')))
+      map((price: string) => hexToNumberString(price.replace('0x', '')))
     );
   }
 }
