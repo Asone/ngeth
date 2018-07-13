@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { TxObject, keccak256, isHexStrict, hexToBytes } from '@ngeth/utils';
-import { AuthModule } from '../auth.module';
 import { RLP } from '../signature/rlp';
 import { Buffer } from 'buffer';
 import { sign } from 'secp256k1';
 
 
-@Injectable({ providedIn: AuthModule })
+@Injectable({ providedIn: 'root' })
 export class Signer {
 
   constructor(private rlp: RLP) {}
