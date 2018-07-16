@@ -1,44 +1,167 @@
-# Ngeth
+# @ngeth
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) using [Nrwl Nx](https://nrwl.io/nx).
+> Angular librairies to build Decentralized Application (Dapp) on Ethereum.
 
-## Nrwl Extensions for Angular (Nx)
+  
 
-<a href="https://nrwl.io/nx"><img src="https://preview.ibb.co/mW6sdw/nx_logo.png"></a>
+![](./docs/img/ngeth-logo.png)
 
-Nx is an open source toolkit for enterprise Angular applications.
+  
 
-Nx is designed to help you create and build enterprise grade Angular applications. It provides an opinionated approach to application project structure and patterns.
+@ngeth enables superfast production of Dapp on Ethereum thanks to the Angular front-end framework.
 
-## Quick Start & Documentation
+@ngeth allow you to test and run your contract with an Angular oriented syntax, and supports the experimental ABIEncoderV2 of Solidity.
 
-[Watch a 5-minute video on how to get started with Nx.](http://nrwl.io/nx)
+  
 
-## Generate your first application
+## [WARNING] alpha
 
-Run `ng generate app myapp` to generate an application. When using Nx, you can create multiple applications and libraries in the same CLI workspace. Read more [here](http://nrwl.io/nx).
+@ngeth is under heavy development. You should expect breaking changes.
 
-## Development server
+Please do not use @ngeth in production mode.
 
-Run `ng serve --app=myapp` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+  
 
-## Code scaffolding
+## Packages
 
-Run `ng generate component component-name --app=myapp` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+  
 
-## Build
+*  [@ngeth/provider](./libs/provider) - The provider to connect to your node. HTTP and WebSocket are supported.
 
-Run `ng build --app=myapp` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+*  [@ngeth/utils](./libs/utils) - Utils to manipulate BigNumbers and Hex values.
 
-## Running unit tests
+*  [@ngeth/auth](./libs/auth) - An Authentication system to either store accounts on the node or on localStorage.
+* [@ngeth/contract](./libs/contract) - The lib to build and manage contracts.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+  
 
-## Running end-to-end tests
+## Examples
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+  
 
-## Further help
+*  [example](./example-app) - Use @ngeth libraries to manage the asset of the game Beyond the Void.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+  
+  
+
+## Usage Example
+
+  
+
+### Setup
+
+  
+
+Start a traditional Angular app with @angular/cli
+
+```sh
+
+ng new ngeth-dapp
+
+cd ngeth-dapp
+
+```
+
+  
+
+Then add the `eth` package.
+
+```sh
+
+npm install @ngeth/eth --save
+
+```
+
+  
+
+### Add the EthModule
+
+  
+
+In the `app.module.ts` file
+
+```sh typescript
+import { AppComponent } from './app.component';
+import { ProviderModule } from '@ngeth/provider';
+
+@NgModule({
+	declarations: [AppComponent],
+	imports: [
+		BrowserModule,
+		// Connect to an infura node
+		ProviderModule.init('https://ropsten.infura.io'),
+	],
+	providers: [],
+	bootstrap: [AppComponent]
+})
+
+export class AppModule { }
+
+```
+
+  
+
+### Get the current block
+
+  
+In the `app.component.ts` file
+
+```sh
+import { Component, OnInit } from '@angular/core';
+import { Eth} from '@ngeth/provider';
+import { Observable } from 'rxjs';
+
+@Component({
+	selector: 'app-root',
+	template: '<p>Current Block: {{ block$ | async }}</p>',
+	styles: []
+})
+
+export class AppComponent implements OnInit {
+	public block$: Observable<number>;
+	
+	constructor(private eth: EthService) {}
+	
+	ngOnInit() {
+		this.block$ = this.eth.getBlockNumber();
+	}
+}
+
+```
+
+  
+
+### See the block number
+
+  
+
+```sh
+
+ng serve
+
+```
+
+With any browser (no need to use Mist or MetaMask if you provide a node in `ProviderModule`).
+
+```sh
+
+localhost:4200
+
+```
+
+  
+
+## Meta
+
+  
+François Guezengar – francois.guezengar@b2expand.com
+Quentin Vaudain - quentin.vaudain@b2expand.com
+Gabrielle Huëbra - gabrielle.huebra@b2expand.com
+
+  
+
+Distributed under the MIT license. See ``LICENSE`` for more information.
+
+  
+
+[Github](https://github.com/GrandSchtroumpf)
