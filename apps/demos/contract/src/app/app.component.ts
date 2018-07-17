@@ -5,14 +5,13 @@ import { EncoderTestContract, TestEventContract } from '@ngeth/contract';
 import { tap, map, switchMap } from 'rxjs/operators';
 const bytecode = require('./test-event/bytecode.json');
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app';
+  title = '';
 
   constructor(
     private wallet: AuthWallet,

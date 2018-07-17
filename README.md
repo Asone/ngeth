@@ -39,7 +39,7 @@ Please do not use @ngeth in production mode.
 
   
 
-*  [example](./example-app) - Use @ngeth libraries to manage the asset of the game Beyond the Void.
+*  [example](./apps) - TODO.
 
   
   
@@ -64,11 +64,11 @@ cd ngeth-dapp
 
   
 
-Then add the `eth` package.
+Then add the `provider` and `utils` packages.
 
 ```sh
 
-npm install @ngeth/eth --save
+npm install @ngeth/provider @ngeth/utils --save
 
 ```
 

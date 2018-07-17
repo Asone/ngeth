@@ -228,33 +228,31 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ngeth/contract@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@ngeth/contract/-/contract-0.1.0.tgz#7888ce6a2d6119ca0d4f310ba33c473a1a75ca2a"
-  dependencies:
-    tslib "^1.9.0"
-
-"@ngeth/provider@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@ngeth/provider/-/provider-0.1.0.tgz#a66ac19d359d18137e6af76871f6429bda912f1d"
-  dependencies:
-    tslib "^1.9.0"
-    websocket "^1.0.26"
-
-"@ngeth/utils@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@ngeth/utils/-/utils-0.1.0.tgz#0363157c83a82194764306e449c8d773876b6415"
-  dependencies:
-    tslib "^1.9.0"
-
-"@ngeth/wallet@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@ngeth/wallet/-/wallet-0.1.0.tgz#199a3136ea65c4532fc2d22d2f3a5a029c8df1f6"
+"@ngeth/auth@./@ngeth/auth":
+  version "0.1.3"
   dependencies:
     scrypt.js "^0.2.0"
     secp256k1 "^3.5.0"
     tslib "^1.9.0"
     uuid "^3.3.0"
+
+"@ngeth/contract@./@ngeth/contract":
+  version "0.1.3"
+  dependencies:
+    tslib "^1.9.0"
+
+"@ngeth/provider@./@ngeth/provider":
+  version "0.1.3"
+  dependencies:
+    tslib "^1.9.0"
+    websocket "^1.0.26"
+
+"@ngeth/utils@./@ngeth/utils":
+  version "0.1.3"
+  dependencies:
+    bn.js "^4.11.8"
+    tslib "^1.9.0"
+    utf8 "^3.0.0"
 
 "@ngrx/effects@6.0.0-beta.1":
   version "6.0.0-beta.1"

@@ -4,7 +4,9 @@ import { bindNodeCallback, Observable } from 'rxjs';
 
 import { RPCRes, RPCReq, RPCSub } from '@ngeth/utils';
 import { MainProvider } from './main-provider';
+import { Injectable } from '@angular/core';
 
+@Injectable({ providedIn: 'root' })
 export class Provider extends MainProvider {
   public sendAsync: <T>(payload: RPCReq) => Observable<RPCRes<T>>;
   public on: <T>(payload: RPCReq) => Observable<RPCSub<T>>;
