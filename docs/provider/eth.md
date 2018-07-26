@@ -61,4 +61,12 @@ Returns an `Observable`
 
 ### onNewBlock()
 
+Each a new header is appended to the chain, returns a Block containing the informations. In cas of chain reorganization, all the blocks for the new chain are emitted (and these blocks are on the same height).
+
+Returns an `Observable`
+
 ### isSyncing()
+
+Indicates when the node starts or stops synchronizing. The result can be a boolean of an object recording the progress.
+
+Returns an `Observable`
