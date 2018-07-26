@@ -257,7 +257,7 @@ export function hexToNumberString(value: string | number | BN): string {
     return value;
   }
 
-  return new BN(value, 16).toString(10);
+  return new BN(value.replace('0x', ''), 16).toString(10);
 }
 
 /**
