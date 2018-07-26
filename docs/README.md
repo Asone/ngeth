@@ -8,6 +8,8 @@ Please be aware that this doc is in progress
 
 [ETH](provider/eth.md)
 
+[Provider](provider.provider.md)
+
 ## Utils
 
 [Types](utils/types.md)

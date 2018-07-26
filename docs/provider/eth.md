@@ -31,13 +31,13 @@ Returns an `Observable<number>`
 ## Block
 
 ### getBlockByNumber(blockNumber)
-get the block relative to its number. The parameter can be a number or a string containing a hexadecimal number.
+get the block according to its number. The parameter can be a number or a string containing a hexadecimal number.
 
 Returns an `Observable`
 
 ### getBlockByHash(hash)
 
-get the block relative to its hash.
+get the block according to its hash.
 
 Returns an `Observable`
 
@@ -46,18 +46,20 @@ Returns an `Observable`
 
 ### getTransaction(hash)
 
-get the informations about the transaction relative to its hash.
+get the informations about the transaction according to its hash.
 
 Returns an `Observable`
 
 ### getTransactionReceipt(hash)
 
-get the receipt of a transaction by its hash. It is not avalaible for pending transactions.
+get the receipt of a transaction according to its hash. This receipt is not avalaible for pending transactions.
 
 Returns an `Observable`
 
 
 ## Subscriptions
+
+Specific to websockets
 
 ### onNewBlock()
 

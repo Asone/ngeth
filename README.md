@@ -33,7 +33,10 @@ Please do not use @ngeth in production mode.
 *  [@ngeth/auth](./libs/auth) - An Authentication system to either store accounts on the node or on localStorage.
 * [@ngeth/contract](./libs/contract) - The lib to build and manage contracts.
 
-  
+## Documentation
+
+[Documentation](./docs)
+
 
 ## Examples
 
