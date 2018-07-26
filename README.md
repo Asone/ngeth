@@ -108,7 +108,7 @@ In the `app.component.ts` file
 
 ```sh
 import { Component, OnInit } from '@angular/core';
-import { Eth} from '@ngeth/provider';
+import { Eth } from '@ngeth/provider';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -118,9 +118,9 @@ import { Observable } from 'rxjs';
 })
 
 export class AppComponent implements OnInit {
-	public block$: Observable<number>;
+	public block$: Observable<string>;
 	
-	constructor(private eth: EthService) {}
+	constructor(private eth: Eth) {}
 	
 	ngOnInit() {
 		this.block$ = this.eth.getBlockNumber();
