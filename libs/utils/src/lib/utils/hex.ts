@@ -244,7 +244,7 @@ export function hexToNumber(value: string | number | BN): number {
     return value;
   }
 
-  return new BN(value, 16).toNumber();
+  return new BN(value.replace('0x', ''), 16).toNumber();
 }
 
 /**

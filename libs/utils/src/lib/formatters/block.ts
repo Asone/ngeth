@@ -1,4 +1,4 @@
-import { hexToNumber } from '../utils';
+import { hexToNumber, hexToNumberString } from '../utils';
 
 export interface IBlock {
   /** the block number. null when its pending block. */
@@ -22,17 +22,17 @@ export interface IBlock {
   /** the address of the beneficiary to whom the mining rewards were given. */
   miner: string;
   /** integer of the difficulty for this block. */
-  difficulty: number;
+  difficulty: string;
   /**  integer of the total difficulty of the chain until this block. */
-  totalDifficulty: number;
-  /** integer the size of this block in bytes. */
-  size: number;
+  totalDifficulty: string;
+  /** integer of the size of this block in bytes. */
+  size: string;
   /** the "extra data" field of this block. */
   extraData: string;
   /** the maximum gas allowed in this block. */
-  gasLimit: number;
+  gasLimit: string;
   /** the total used gas by all transactions in this block. */
-  gasUsed: number;
+  gasUsed: string;
   /** the unix timestamp for when the block was collated. */
   timestamp: number;
   /** Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter. */
@@ -52,12 +52,12 @@ export class Block implements IBlock {
   stateRoot: string;
   receiptsRoot: string;
   miner: string;
-  difficulty: number;
-  totalDifficulty: number;
-  size: number;
+  difficulty: string;
+  totalDifficulty: string;
+  size: string;
   extraData: string;
-  gasLimit: number;
-  gasUsed: number;
+  gasLimit: string;
+  gasUsed: string;
   timestamp: number;
   transactions: string[];
   uncles: string[];
@@ -73,12 +73,12 @@ export class Block implements IBlock {
     this.stateRoot = ethBlock.stateRoot;
     this.receiptsRoot = ethBlock.receiptsRoot;
     this.miner = ethBlock.miner;
-    this.difficulty = hexToNumber(ethBlock.difficulty);
-    this.totalDifficulty = hexToNumber(ethBlock.totalDifficulty);
-    this.size = hexToNumber(ethBlock.size);
+    this.difficulty = ethBlock.difficulty;
+    this.totalDifficulty = ethBlock.totalDifficulty;
+    this.size = hexToNumberString(ethBlock.size);
     this.extraData = ethBlock.extraData;
-    this.gasLimit = hexToNumber(ethBlock.gasLimit);
-    this.gasUsed = hexToNumber(ethBlock.gasUsed);
+    this.gasLimit = hexToNumberString(ethBlock.gasLimit);
+    this.gasUsed = hexToNumberString(ethBlock.gasUsed);
     this.timestamp = hexToNumber(ethBlock.timestamp);
     this.transactions = ethBlock.transactions;
     this.uncles = ethBlock.uncles;
