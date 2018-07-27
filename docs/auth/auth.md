@@ -8,7 +8,7 @@
 + [Properties](#properties)
 + [getKeystore](#getkeystoreaddress)
 + [getAccounts](#getaccounts)
-+ [create](#create
++ [create](#create)
 + [save](#saveaccount-password)
 + [encrypt](#encryptprivatekey-password-options)
 + [decrypt](#decryptkeystore-password)
@@ -27,7 +27,7 @@
 + [sign](#signmessage-address-pwd)
 
 #### Accounts
-+ [create](#create
++ [create](#create)
 + [fromPrivate](#fromprivateprivatekey)
 + [encrypt](#encryptprivatekey-password-encryptoptions)
 + [decrypt](#decryptkeystore-password-1)
