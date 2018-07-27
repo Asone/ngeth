@@ -8,7 +8,11 @@ Please be aware that this doc is in progress
 
 [ETH](provider/eth.md)
 
-[Provider](provider.provider.md)
+[Provider](provider/provider.md)
+
+## Auth
+
+[Auth](auth/auth.md)
 
 ## Utils
 

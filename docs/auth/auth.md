@@ -6,31 +6,31 @@
 
 #### AuthWallet
 + [Properties](#properties)
-+ [getKeystore](#getkeystore)
-+ [getAccounts](#getaccounts())
-+ [create](#create())
-+ [save](#save(account,-password))
-+ [encrypt](#encrypt(privatekey,-password,-options?))
-+ [decrypt](#decrypt(keystore,-password))
-+ [sendTransaction](#sendtransaction(tx,-privatekey))
-+ [sendRawTransaction](#sendrawtransaction(rawtx))
-+ [signTx](#signtx(tx,-privatekey))
-+ [sign](#sign(message,-address,-password))
++ [getKeystore](#getkeystoreaddress)
++ [getAccounts](#getaccounts)
++ [create](#create
++ [save](#saveaccount-password)
++ [encrypt](#encryptprivatekey-password-options)
++ [decrypt](#decryptkeystore-password)
++ [sendTransaction](#sendtransactiontx-privatekey)
++ [sendRawTransaction](#sendrawtransactionrawtx)
++ [signTx](#signtxtx-privatekey)
++ [sign](#signmessage-address-password)
 
 
 #### AuthAccount
-+ [Properties](#properties<id1>)
-+ [getAccounts](#getaccounts())
-+ [sendTransaction](#sendtransaction\<t\><id1>(tx,-blocktag))
-+ [getBalance](#getbalance(address,-blocktag?))
-+ [getTransactionCount](#gettransactioncount(address,-blocktag?))
-+ [sign](#sign<id1>(message,-address,-pwd))
++ [Properties](#properties-1)
++ [getAccounts](#getaccounts)
++ [sendTransaction](#sendtransactiontx-blocktag)
++ [getBalance](#getbalanceaddress-blocktag)
++ [getTransactionCount](#gettransactioncountaddress-blocktag)
++ [sign](#signmessage-address-pwd)
 
 #### Accounts
-+ [create](#create())
-+ [fromPrivate](#fromprivate(privatekey))
-+ [encrypt](#encrypt(privatekey,-password,-encryptoptions?))
-+ [decrypt](#decrypt<id1>(keystore,-password))
++ [create](#create
++ [fromPrivate](#fromprivateprivatekey)
++ [encrypt](#encryptprivatekey-password-encryptoptions)
++ [decrypt](#decryptkeystore-password-1)
 
 #### Types
 + [EthAccount](#ethaccount)
@@ -48,7 +48,7 @@
 + **account$** : the current account (same as defaultAccount)
 
 ### getKeystore(address)
-returns a specific keystore from its address, if it was previously savec in the local storage with [`save`](#save(account,-password)).
+returns a specific keystore from its address, if it was previously savec in the local storage with [`save`](#saveaccount-password).
 
 ### getAccounts()
 returns all the addresses avalaible in the keystore
@@ -62,7 +62,7 @@ returns a new [`EthAccount`](#ethaccount). ⚠️ This object contains the priva
 stores the keystore in the localStorage. account is of type `EthAccount`
 
 ### encrypt(privatekey, password, options?)
-encrypts the private key into a store and returns it. The list of options is of type [`Partial<EncryptOptions>`]()
+encrypts the private key into a store and returns it. The list of options is of type [`Partial<EncryptOptions>`](#encryptoptions)
 
 ### decrypt(keystore, password)
 decrypts a keystore object and returns an `EthAccount`
