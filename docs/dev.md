@@ -15,7 +15,7 @@ First, in `package.json`, you need to remove **temporarily** the @ngeth modules 
 ```
 Then you can install the node_modules by running `npm install` or `yarn add`. Now, you can **add these lines again**.
 
-Now you can use `@ngeth/utils`, but you need to [build the libraries](##Build-the-libraries) to use the others.
+Now you can use `@ngeth/utils`, but you need to [build the libraries](#build-the-libraries) to use the others.
 
 ## Build the libraries
 There is a specific order in the build libraries :

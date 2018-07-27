@@ -3,17 +3,17 @@
 ## Summary
 
 #### Basics
-+ [getBlockNumber](###getBlockNumber())
-+ [getGasPrice](###getGasPrice())
++ [getBlockNumber](#getblocknumber())
++ [getGasPrice](#getgasprice())
 #### Block
-+ [getBlockByNumber](###getBlockByNumber(blockNumber))
-+ [getBlockByHash](###getBlockByHash(hash))
++ [getBlockByNumber](#getblockbynumber(blocknumber))
++ [getBlockByHash](#getblockbyhash(hash))
 #### Transactions
-+ [getTransaction](###getTransaction(hash))
-+ [getTransactionReceipt](###getTransactionReceipt(hash))
++ [getTransaction](#gettransaction(hash))
++ [getTransactionReceipt](#gettransactionreceipt(hash))
 #### Subscriptions
-+ [onNewBlock](###onNewBlock())
-+ [isSyncing](###isSyncing())
++ [onNewBlock](#onnewblock())
++ [isSyncing](#issyncing())
 
 
 ## Basics

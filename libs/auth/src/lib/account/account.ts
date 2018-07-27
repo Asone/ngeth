@@ -36,7 +36,7 @@ export class Accounts {
    */
   public fromPrivate(privateKey: string | Buffer): EthAccount {
     if (typeof privateKey === 'string') {
-      privateKey = Buffer.from([privateKey.replace('0x', '')]);
+      privateKey = Buffer.from(privateKey.replace('0x', ''), 'hex');
     }
     // Slice(1) is to drop type byte which is hardcoded as 04 ethereum.
     const pubKey = publicKeyCreate(privateKey, false).slice(1);
