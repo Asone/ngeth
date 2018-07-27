@@ -45,7 +45,7 @@ export class Eth {
    */
   public getBlockByHash(blockHash: string): Observable<any> {
     return this.provider
-      .rpc<any>('eth_getBlockByNumber', [blockHash, true])
+      .rpc<any>('eth_getBlockByHash', [blockHash, true])
       .pipe(map(block => (block ? new Block(block) : null)));
   }
 
