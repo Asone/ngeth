@@ -1,12 +1,13 @@
 # Types
 
 ## Summary
-[Block](##Block)
+[Block](#block)
 
-[Transaction](##Transaction)
+[Transaction](#transaction)
 
 
 ## Block
+
 
 | Property      | Type          | Description |
 | ------------- |:-------------:|:-----|
@@ -47,5 +48,13 @@ N.B. : Be aware that most of the numbers in this class are "stringified", like t
 | **gasPrice** | number | gas price provided by the sender in wei
 | **input** | string | the data send along the transaction
 
-
-
+## TxObject
+| Property      | Type          | Description |
+| ------------- |:-------------:|:-----|
+|**from** | string | the address that sends the transaction
+| **to** | string| the address the transaction is directed to
+| **gas** | number | (default:90000) integer of the gas provided for the transaction execution - returns unused gas
+|**gasPrice** | string | integer of the gasPrice used for each paid gas
+|**value** | string | integer of the value sent with if tx transaction
+| **data** |string | the compiled code of a contract OR the hash of the invoked method signature and encoded parameters
+| **nonce** |string | integer of a nonce - allows to overwrite your own pending transaction that uses the same nonce
