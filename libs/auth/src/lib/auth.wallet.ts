@@ -30,15 +30,11 @@ export class AuthWallet implements Auth {
   }
 
   /** Get the default account */
-  get defaultAccount(): string {
-    return this.currentAccount.getValue();
-  }
-
+  get defaultAccount(): string { return this.currentAccount.getValue(); }
   /** Set the default account */
-  set defaultAccount(account: string) {
-    this.currentAccount.next(toChecksumAddress(account));
-  }
+  set defaultAccount(account: string) { this.currentAccount.next(toChecksumAddress(account)); }
 
+  
   /** Return the keystore map from the localstore */
   private getKeystoreMapFromLocalStorage(): KeystoreMap {
     return new Array(localStorage.length).fill(null)

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { numberToHex, Block, Transaction, TxReceipt, toBN } from '@ngeth/utils';
+import { numberToHex, Block, Transaction, TxReceipt, toBN, hexToNumber } from '@ngeth/utils';
 import { Provider } from './provider';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -55,6 +55,7 @@ export class Eth {
 
    /**
     * get the informations about a transaction according to its hash
+    * @return the transaction object
     */
   public getTransaction(transactionHash: string): Observable<any> {
     return this.provider
@@ -70,6 +71,17 @@ export class Eth {
     return this.provider
       .rpc<number>('eth_getTransactionReceipt', [transactionHash])
       .pipe(map(receipt => (receipt ? new TxReceipt(receipt) : null)));
+  }
+
+  /**
+   * get the number of transactions sent by the address until the block
+   * @param address address of the sender
+   * @param block 'latest' by default
+   */
+  public getTransactionCount(address : string, block : number | string = 'latest') : Observable<number>{
+    return this.provider
+      .rpc<string>('eth_getTransactionCount', [address, block])
+      .pipe(map(txCount => hexToNumber(txCount)))
   }
 
   /***************

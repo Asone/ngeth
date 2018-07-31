@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { Contract } from '../../contract';
+import { Contract } from '@ngeth/contract';
 import { ITestEventContract } from './test-event.models';
 const abi = require('./test-event.abi.json');
 

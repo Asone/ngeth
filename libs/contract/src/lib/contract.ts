@@ -3,7 +3,7 @@ import { ABIDefinition, ContractModel, ITxObject } from '@ngeth/utils';
 import { ContractProvider } from './contract.provider';
 import { ABIEncoder, ABIDecoder } from './abi';
 
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 const CONFIG = new InjectionToken('@ngeth/contract : The config of a contract');
@@ -21,14 +21,11 @@ export class Contract<T extends ContractModel> {
   private provider: ContractProvider;
   private abi: ABIDefinition[];
   public address: string;
-  public calls: { [P in keyof T['calls']]: T['calls'][P]; } = {} as any;
-  public sends: { [P in keyof T['sends']]: T['sends'][P]; } = {} as any;
-  public events: { [P in keyof T['events']]: T['events'][P]; } = {} as any;
+  public calls: { [P in keyof T['calls']]: T['calls'][P] } = {} as any;
+  public sends: { [P in keyof T['sends']]: T['sends'][P] } = {} as any;
+  public events: { [P in keyof T['events']]: T['events'][P] } = {} as any;
 
-  constructor(
-    injector: Injector,
-    @Inject(CONFIG) config
-  ) {
+  constructor(injector: Injector, @Inject(CONFIG) config) {
     this.encoder = injector.get(ABIEncoder);
     this.decoder = injector.get(ABIDecoder);
     this.provider = injector.get(ContractProvider);
@@ -42,8 +39,13 @@ export class Contract<T extends ContractModel> {
    */
   private getAddress(id: number, addresses): string {
     const net = { 1: 'mainnet', 3: 'ropsten', 4: 'rinkeby', 42: 'kovan' };
-    if (!net[id]) { throw new Error(`Network ${id} is not known.`); }
-    if (!addresses[net[id]]) { throw new Error('No address provided for ' + net[id]); }
+    if (!net[id]) {
+      throw new Error(`Network ${id} is not known.`);
+    }
+    if (!addresses[net[id]]) {
+      console.warn('WARNING : No address provided for ' + net[id]);
+      return null;
+    }
     return addresses[net[id]];
   }
 
@@ -53,9 +55,13 @@ export class Contract<T extends ContractModel> {
    * @param address The address of the contract for the current network
    */
   private init(abi: ABIDefinition[], address?: string) {
-    if (!abi) { throw new Error('Please add an abi to the contract'); }
+    if (!abi) {
+      throw new Error('Please add an abi to the contract');
+    }
     this.abi = abi;
-    if (address) { this.address = address; }
+    if (address) {
+      this.address = address;
+    }
     const calls: any[] = [];
     const sends: any[] = [];
     const events: any[] = [];
@@ -70,22 +76,32 @@ export class Contract<T extends ContractModel> {
         events.push(def);
       }
     }
-    calls.forEach(def => (this.calls[def.name] = this.callMethod.bind(this, def)));
-    sends.forEach(def => (this.sends[def.name] = this.sendMethod.bind(this, def)));
-    events.forEach(def => (this.events[def.name] = this.eventMethod.bind(this, def)));
+    calls.forEach(
+      def => (this.calls[def.name] = this.callMethod.bind(this, def))
+    );
+    sends.forEach(
+      def => (this.sends[def.name] = this.sendMethod.bind(this, def))
+    );
+    events.forEach(
+      def => (this.events[def.name] = this.eventMethod.bind(this, def))
+    );
   }
 
   /**
    * Deploy the contract on the blockchain
    * @param bytes The bytes of the contract
    * @param params Params to pass into the constructor
+   * @returns the address of the contract newly deployed
    */
-  public deploy(bytes: string, ...params: any[]) {
+  public deploy(bytes: string, ...params: any[]): Observable<string> {
     const constructor = this.abi.find(def => def.type === 'constructor');
     const noParam = params.length === 0;
-    const data = noParam ? bytes : this.encoder.encodeConstructor(constructor, bytes, params);
-    return this.fillGas({ ...this.provider.defaultTx, data })
-      .pipe(switchMap(tx => this.provider.sendTransaction(tx)));
+    const data = noParam
+      ? bytes
+      : this.encoder.encodeConstructor(constructor, bytes, params);
+    return this.fillGas({ ...this.provider.defaultTx, data }).pipe(
+      switchMap(tx => this.provider.sendTransaction(tx))
+    );
   }
 
   /**
@@ -109,9 +125,13 @@ export class Contract<T extends ContractModel> {
    * @param params The params given by the user
    */
   private sendMethod(method: ABIDefinition, ...params: any[]) {
-    const { to, data } = { to: this.address, data: this.encoder.encodeMethod(method, params) };
-    return this.fillGas({ ...this.provider.defaultTx, to, data })
-      .pipe(switchMap(tx => this.provider.sendTransaction(tx)));
+    const { to, data } = {
+      to: this.address,
+      data: this.encoder.encodeMethod(method, params)
+    };
+    return this.fillGas({ ...this.provider.defaultTx, to, data }).pipe(
+      switchMap(tx => this.provider.sendTransaction(tx))
+    );
   }
 
   /**
@@ -120,9 +140,13 @@ export class Contract<T extends ContractModel> {
    */
   private eventMethod(event: ABIDefinition) {
     const topics = this.encoder.encodeEvent(event);
-    return this.provider.event(this.address, [topics]).pipe(
-      map(logs => this.decoder.decodeEvent(logs.topics, logs.data, event.inputs))
-    );
+    return this.provider
+      .event(this.address, [topics])
+      .pipe(
+        map(logs =>
+          this.decoder.decodeEvent(logs.topics, logs.data, event.inputs)
+        )
+      );
   }
 
   /**
@@ -133,10 +157,10 @@ export class Contract<T extends ContractModel> {
     return forkJoin(
       this.provider.estimateGas(tx),
       this.provider.gasPrice()
-    ).pipe(map(([gas, gasPrice]) => {
-        return { ...tx, gas, gasPrice }
+    ).pipe(
+      map(([gas, gasPrice]) => {
+        return { ...tx, gas, gasPrice };
       })
     );
   }
-
 }

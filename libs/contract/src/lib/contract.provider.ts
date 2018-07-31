@@ -1,11 +1,20 @@
 import { Inject, Injectable } from '@angular/core';
 import { Provider } from '@ngeth/provider';
 import { Auth, AUTH } from '@ngeth/auth';
-import { BlockTag, TxLogs, ITxObject, TxObject, hexToNumber, hexToNumberString } from '@ngeth/utils';
+import {
+  BlockTag,
+  TxLogs,
+  ITxObject,
+  TxObject,
+  hexToNumber,
+  hexToNumberString,
+  ITransaction
+} from '@ngeth/utils';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap, tap, filter } from 'rxjs/operators';
+import { Eth } from '@ngeth/provider';
 
-@Injectable({ providedIn : 'root' })
+@Injectable({ providedIn: 'root' })
 export class ContractProvider {
   private currentTx = new BehaviorSubject<Partial<ITxObject>>(null);
   public tx$ = this.currentTx.asObservable();
@@ -13,11 +22,27 @@ export class ContractProvider {
 
   constructor(
     @Inject(AUTH) private auth: Auth,
-    private provider: Provider
+    private provider: Provider,
+    private eth: Eth
   ) {
     this.id = this.provider.id;
     this.auth.account$
-        .subscribe(from => this.defaultTx = { ...this.defaultTx, from });
+      .pipe(
+        tap(from => console.log('address', from)),
+        filter(from => !!from),
+        switchMap(
+          from => this.eth.getTransactionCount(from),
+          (from, count) => ({ from: from, count: count })
+        )
+      )
+      .subscribe(
+        tx =>
+          (this.defaultTx = {
+            ...this.defaultTx,
+            from: tx.from,
+            nonce: tx.count
+          })
+      );
   }
 
   get defaultTx(): Partial<ITxObject> {
@@ -25,7 +50,7 @@ export class ContractProvider {
   }
 
   set defaultTx(transaction: Partial<ITxObject>) {
-    const tx = {...this.currentTx.getValue(), ...transaction };
+    const tx = { ...this.currentTx.getValue(), ...transaction };
     this.currentTx.next(tx);
   }
 
@@ -47,28 +72,25 @@ export class ContractProvider {
    * Send a transaction to the node
    * @param tx The transaction to pass to the node
    * @param blockTag The block to target
+   * @return the hash of the transaction
    */
-  public sendTransaction<T>(
+  public sendTransaction(
     transaction: Partial<ITxObject>,
     ...rest: any[]
-  ): Observable<T> {
+  ): Observable<any> {
     const tx = new TxObject(transaction);
     return this.auth.sendTransaction(tx, rest);
   }
-
 
   /**
    * Create a RPC request for a subscription
    * @param address The address of the contract
    * @param topics The signature of the event
    */
-  public event(
-    address: string,
-    topics: string[]
-  ): Observable<TxLogs> {
-    return this.provider.rpcSub<TxLogs>(['logs', {address, topics}]).pipe(
-      map(logs => new TxLogs(logs))
-    );
+  public event(address: string, topics: string[]): Observable<TxLogs> {
+    return this.provider
+      .rpcSub<TxLogs>(['logs', { address, topics }])
+      .pipe(map(logs => new TxLogs(logs)));
   }
 
   /**
@@ -78,16 +100,21 @@ export class ContractProvider {
   public estimateGas(transaction: Partial<ITxObject>): Observable<number> {
     const tx = new TxObject(transaction);
     return this.provider.rpc<string>('eth_estimateGas', [tx]).pipe(
-      map((gas: string) => hexToNumber(gas.replace('0x', '')))
+      map((gas: string) => {
+        const gasMax = 8000000;
+        const estimateGas = hexToNumber(gas.replace('0x', ''));
+        return (estimateGas * 1.5 > gasMax) ? estimateGas : estimateGas * 1.5;
+      })
     );
+    // multiplied by 1.5 to avoid under-estimation
   }
 
   /**
    * Returns the current price per gas in wei
    */
   public gasPrice(): Observable<string> {
-    return this.provider.rpc<string>('eth_gasPrice', []).pipe(
-      map((price: string) => hexToNumberString(price.replace('0x', '')))
-    );
+    return this.provider
+      .rpc<string>('eth_gasPrice', [])
+      .pipe(map((price: string) => hexToNumberString(price.replace('0x', ''))));
   }
 }

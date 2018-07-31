@@ -31,11 +31,11 @@ export class AuthAccount implements Auth {
    * @param tx The transaction to pass to the node
    * @param blockTag The block to target
    */
-  public sendTransaction<T>(
+  public sendTransaction(
     tx: TxObject,
     blockTag: BlockTag = 'latest'
-  ): Observable<T> {
-    return this.provider.rpc<T>('eth_sendTransaction', [tx, blockTag]);
+  ): Observable<string> {
+    return this.provider.rpc<string>('eth_sendTransaction', [tx, blockTag]);
   }
 
   public getBalance(address: string, blockTag?: BlockTag | number) {

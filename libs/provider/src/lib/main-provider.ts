@@ -42,6 +42,7 @@ export class MainProvider {
   /** Send a request to the node */
   public rpc<T>(method: string, params?: any[]): Observable<T> {
     const payload = this.req(method, params);
+    console.log(payload); // a virer
     return this.sendAsync<T>(payload).pipe(
       tap(console.log),
       map(res => {
