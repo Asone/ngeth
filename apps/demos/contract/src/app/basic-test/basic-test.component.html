@@ -1,0 +1,31 @@
+<h1>Basic Tests : </h1>
+<div>
+    <h2>Create an address</h2>
+    <button (click)="create()">Create</button>
+    <div *ngIf="account">
+        <p>Private Key : {{account.privateKey}}</p>
+        <p>Address : {{ account.address }}</p>
+        <button (click)="encryptNewAccount()">Save on local storage</button>
+    </div>
+
+</div>
+<div>
+    <h2>get account from pk</h2>
+    <input #box placeholder="private key">
+    <label>This won't be stored !</label>
+    <br/>
+    <input #pwd placeholder="password" type="password">
+    <button (click)="encrypt(box.value, pwd.value)">Encrypt</button>
+</div>
+<div>
+    <h2>If keystore already in local storage</h2>
+    <input placeholder="your address" #add/>
+    <button (click)="retrieveKeystore(add.value)">Retrieve keystore</button>
+</div>
+<div>
+    <button (click)="getKeyStore()" *ngIf="address">Get Keystore</button>
+
+    <p>Keystore :{{ keystore | json}}</p>
+</div>
+<h2>Retrieving all accounts of a node</h2>
+<p>{{nodeAccounts | async | json}}</p>

@@ -1,7 +1,7 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc/apps/demos/contract",
+    "outDir": "../../../dist/out-tsc/apps/demos",
     "module": "commonjs",
     "types": [
       "jasmine",

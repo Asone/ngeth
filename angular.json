@@ -234,5 +234,5 @@
     "typescriptMismatch": false,
     "defaultCollection": "@nrwl/schematics"
   },
-  "defaultProject": "provider"
+  "defaultProject": "demos-contract"
 }
