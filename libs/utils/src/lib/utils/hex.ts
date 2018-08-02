@@ -1,5 +1,5 @@
 import * as utf8 from 'utf8';
-import BN from 'bn.js';
+import { BN } from 'bn.js';
 
 import { isBigNumber, isBN, toBN } from './bn';
 import { keccak256 } from './keccack';
@@ -261,7 +261,7 @@ export function hexToNumberString(value: string | number | BN): string {
 }
 
 /**
- * Converts value to it's hex representation
+ * Converts value to its hex representation
  * @method numberToHex
  * @param value
  */
@@ -275,6 +275,7 @@ export function numberToHex(value: String | Number | BN): string {
   }
 
   const number = toBN(value);
+  
   const result = number.toString(16);
 
   return number.lt(new BN(0)) ? '-0x' + result.substr(1) : '0x' + result;

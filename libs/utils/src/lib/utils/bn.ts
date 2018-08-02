@@ -1,4 +1,4 @@
-import BN from 'bn.js';
+import { BN } from 'bn.js';
 /**
  * Returns true if object is BN, otherwise false
  *
@@ -57,7 +57,7 @@ export function toTwosComplement(number: number | string | BN): string {
  */
 function numberToBN(arg: string | number | object) {
   if (typeof arg === 'string' || typeof arg === 'number') {
-    let multiplier = new BN(1);
+    let multiplier = new BN('1', 10);
     const formattedString = String(arg)
       .toLowerCase()
       .trim();
@@ -67,10 +67,9 @@ function numberToBN(arg: string | number | object) {
     let stringArg = stripHexPrefix(formattedString);
     if (stringArg.substr(0, 1) === '-') {
       stringArg = stripHexPrefix(stringArg.slice(1));
-      multiplier = new BN(-1, 10);
+      multiplier = new BN("-1", 10);
     }
     stringArg = stringArg === '' ? '0' : stringArg;
-
     if (
       (!stringArg.match(/^-?[0-9]+$/) && stringArg.match(/^[0-9A-Fa-f]+$/)) ||
       stringArg.match(/^[a-fA-F]+$/) ||

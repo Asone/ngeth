@@ -4,7 +4,7 @@ import { ContractProvider } from './contract.provider';
 import { ABIEncoder, ABIDecoder } from './abi';
 
 import { Observable, forkJoin, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 const CONFIG = new InjectionToken('@ngeth/contract : The config of a contract');
 

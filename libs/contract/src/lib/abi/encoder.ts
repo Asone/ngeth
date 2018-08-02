@@ -203,7 +203,7 @@ export class ABIEncoder {
       throw new Error(`Argument ${arg} should be a string`);
     }
     const hex = utf8ToHex(arg).replace('0x', '');
-    const size = numberToHex(arg.length).replace('0x', '')
+    const size = numberToHex(arg.length).replace('0x', '');
     const hexSize = hex.length + 64 - (hex.length % 64);
     return this.padStart(size, 64, '0') + this.padEnd(hex, hexSize, '0');
   }

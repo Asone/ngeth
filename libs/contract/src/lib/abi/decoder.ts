@@ -138,7 +138,7 @@ export class ABIDecoder {
   /** Decode a dynamic byte */
   public decodeDynamicBytes(bytes: string): string {
     const amount = hexToNumber(bytes.slice(0, 64));
-    return bytes.slice(64).substring(0, amount * 2);
+    return "0x"+bytes.slice(64).substring(0, amount * 2);
   }
 
   /** Decode a static byte */
@@ -162,6 +162,7 @@ export class ABIDecoder {
 
   /** Decode an address */
   public decodeAddress(bytes: string): string {
+    //console.log(bytes, toChecksumAddress(bytes.substring(24)));
     return toChecksumAddress(bytes.substring(24));
   }
 
