@@ -44,7 +44,6 @@ export class MainProvider {
     const payload = this.req(method, params);
     console.log(payload); // a virer
     return this.sendAsync<T>(payload).pipe(
-      tap(console.log),
       map(res => {
         if (res.error) throw res.error;
         return res.result;
