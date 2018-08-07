@@ -80,7 +80,7 @@ export function isStatic(output: ABIInput): boolean {
  * @param type Type of the array
  */
 export function isFixedArray(type: string) {
-  return /\[[0-9]\]/.test(type);
+  return /\[[0-9]{1,}\]/.test(type);
 }
 
 /**

@@ -162,6 +162,7 @@ export class ABIDecoder {
 
   /** Decode an address */
   public decodeAddress(bytes: string): string {
+    if(!bytes) return null;
     return toChecksumAddress(bytes.substring(24));
   }
 
