@@ -6,4 +6,4 @@ export { RLP, Signer } from './lib/signature';
 export { AuthWallet } from './lib/auth.wallet';
 export { AuthAccount } from './lib/auth.account';
 export { Auth } from './lib/auth';
-export { Accounts } from './lib/account';
+export { Accounts, Keystore } from './lib/account';

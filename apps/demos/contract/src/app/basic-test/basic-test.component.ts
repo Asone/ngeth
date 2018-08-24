@@ -35,7 +35,6 @@ export class BasicTestComponent implements OnInit {
   encrypt(pk: string, pwd: string) {
     const account = this.acc.fromPrivate(pk);
     this.address = account.address;
-    console.log(this.address);
     this.wallet.save(account, pwd);
   }
 

@@ -18,13 +18,14 @@ export class Provider extends MainProvider {
   /**
    * Initialize the provider with the url thenfetch the Id of the network
    * @param url The url of the node to connect with
+   * @param currentProvider use your current Provider. If none, use the url
    */
-  public init(url: string): Promise<number> {
+  public init(url: string, currentProvider : boolean = false): Promise<number> {
     this.url = url || 'localhost:8545';
     const protocol = new URL(this.url).protocol;
     const isWS = protocol === 'ws:' || protocol === 'wss:';
 
-    if (window && 'web3' in window) {
+    if (window && 'web3' in window && currentProvider) {
       this.type = 'web3';
       this.setWeb3Provider();
     } else if (isWS) {

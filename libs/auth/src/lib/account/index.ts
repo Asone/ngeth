@@ -1,2 +1,2 @@
-export * from './account';
-export * from './encryption';
+export { EthAccount, Accounts} from './account';
+export { EncryptOptions, Keystore} from './encryption';

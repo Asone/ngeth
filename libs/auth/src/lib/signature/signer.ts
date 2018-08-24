@@ -52,10 +52,10 @@ export class Signer {
   private rawTx(tx: TxObject): any[] {
     return [
       '0x' + (tx.nonce || ''),
-      '0x' + (tx.gasPrice || ''),
-      '0x' + (tx.gas || ''),
+      '0x' + (tx.gasPrice.replace('0x', '') || ''),
+      '0x' + (tx.gas.replace('0x', '') || ''),
       '0x' + (tx.to ? tx.to.toLowerCase().replace('0x', '') : ''),
-      '0x' + (tx.value || ''),
+      '0x' + (tx.value.replace('0x', '') || ''),
       '0x' + (tx.data ? tx.data.replace('0x', '') : '')
     ];
   }

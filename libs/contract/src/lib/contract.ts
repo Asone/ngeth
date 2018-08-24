@@ -3,8 +3,8 @@ import { ABIDefinition, ContractModel, ITxObject } from '@ngeth/utils';
 import { ContractProvider } from './contract.provider';
 import { ABIEncoder, ABIDecoder } from './abi';
 
-import { Observable, forkJoin, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { Observable, forkJoin } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 const CONFIG = new InjectionToken('@ngeth/contract : The config of a contract');
 
@@ -99,7 +99,7 @@ export class Contract<T extends ContractModel> {
     const data = noParam
       ? bytes
       : this.encoder.encodeConstructor(constructor, bytes, params);
-    return this.fillGas({ ...this.provider.defaultTx, data }).pipe(
+    return this.fillTx({ ...this.provider.defaultTx, data }).pipe(
       switchMap(tx => this.provider.sendTransaction(tx))
     );
   }
@@ -123,13 +123,14 @@ export class Contract<T extends ContractModel> {
    * Used for 'send' methods
    * @param method The method to send
    * @param params The params given by the user
+   * @param transaction additionnal informations for the transaction (ex : value)
    */
-  private sendMethod(method: ABIDefinition, ...params: any[]) {
+  private sendMethod(method: ABIDefinition, params: Object, transaction ?: Partial<ITxObject>) {
     const { to, data } = {
       to: this.address,
-      data: this.encoder.encodeMethod(method, params)
+      data: this.encoder.encodeMethod(method, Object.keys(params).map(key => params[key]))
     };
-    return this.fillGas({ ...this.provider.defaultTx, to, data }).pipe(
+    return this.fillTx({ ...this.provider.defaultTx, ...transaction, to, data}).pipe(
       switchMap(tx => this.provider.sendTransaction(tx))
     );
   }
@@ -153,13 +154,14 @@ export class Contract<T extends ContractModel> {
    * Fill the estimated amount of gas and gasPrice to use for a transaction
    * @param tx The raw transaction to estimate the gas from
    */
-  private fillGas(tx: Partial<ITxObject>): Observable<Partial<ITxObject>> {
+  private fillTx(tx: Partial<ITxObject>): Observable<Partial<ITxObject>> {
     return forkJoin(
       this.provider.estimateGas(tx),
-      this.provider.gasPrice()
+      this.provider.gasPrice(),
+      this.provider.getNonce()
     ).pipe(
-      map(([gas, gasPrice]) => {
-        return { ...tx, gas, gasPrice };
+      map(([gas, gasPrice, nonce]) => {
+        return { ...tx, gas, gasPrice, nonce };
       })
     );
   }

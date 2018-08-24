@@ -7,11 +7,10 @@ import {
   ITxObject,
   TxObject,
   hexToNumber,
-  hexToNumberString,
-  ITransaction
+  hexToNumberString
 } from '@ngeth/utils';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { map, switchMap, tap, filter } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { Eth } from '@ngeth/provider';
 
 @Injectable({ providedIn: 'root' })
@@ -28,19 +27,13 @@ export class ContractProvider {
     this.id = this.provider.id;
     this.auth.account$
       .pipe(
-        tap(from => console.log('address', from)),
         filter(from => !!from),
-        switchMap(
-          from => this.eth.getTransactionCount(from),
-          (from, count) => ({ from: from, count: count })
-        )
       )
       .subscribe(
-        tx =>
+        from =>
           (this.defaultTx = {
             ...this.defaultTx,
-            from: tx.from,
-            nonce: tx.count
+            from: from
           })
       );
   }
@@ -97,14 +90,15 @@ export class ContractProvider {
    * Estimate the amount of gas needed for transaction
    * @param transaction The transaction to estimate the gas from
    */
-  public estimateGas(transaction: Partial<ITxObject>): Observable<number> {
+  public estimateGas(transaction: Partial<ITxObject>): Observable<string> {
     const tx = new TxObject(transaction);
     return this.provider.rpc<string>('eth_estimateGas', [tx]).pipe(
       map((gas: string) => {
-        const gasMax = 8000000;
+        const gasMax = 4700000;//4.700.000 max for ropsten
         const estimateGas = hexToNumber(gas.replace('0x', ''));
-        return (estimateGas * 1.5 > gasMax) ? estimateGas : estimateGas * 1.5;
-      })
+        const gasToReturn = estimateGas * 1.5 > gasMax ? estimateGas : estimateGas * 1.5;
+        return gasToReturn.toString();
+      }),
     );
     // multiplied by 1.5 to avoid under-estimation
   }
@@ -117,4 +111,12 @@ export class ContractProvider {
       .rpc<string>('eth_gasPrice', [])
       .pipe(map((price: string) => hexToNumberString(price.replace('0x', ''))));
   }
+
+  public getNonce() : Observable<string> {
+    return this.provider
+    .rpc<string>('eth_getTransactionCount', [this.defaultTx.from, 'latest'])
+    .pipe(map((nonce: string) => hexToNumberString(nonce.replace('0x', ''))));
+    // return this.eth.getTransactionCount(this.defaultTx.from);
+  }
+  
 }
